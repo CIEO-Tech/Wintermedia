@@ -99,6 +99,7 @@
   </div>
 
   <div class="controls" id="controls">
+    <button onclick="switchPlaylist('grade5', this)">Grade 5</button>
     <button class="active" onclick="switchPlaylist('grade6', this)">Grade 6</button>
     <button onclick="switchPlaylist('grade7', this)">Grade 7</button>
     <button onclick="switchPlaylist('grade8', this)">Grade 8</button>
@@ -106,6 +107,15 @@
 
   <script>
     const playlists = {
+      grade5: [
+        "Grade 5/cathy.mov",
+        "Grade 5/ivan.mov",
+        "Grade 5/levon.mov",
+        "Grade 5/milly.mov",
+        "Grade 5/nare.mov",
+        "Grade 5/timmy.mov",
+        "Grade 5/winnie.mov"
+      ],
       grade6: [
         "Grade 6/ares.mov",
         "Grade 6/champ.mov",
