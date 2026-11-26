@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Video Playlists (1:2 Portrait)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Fullscreen container locked to 1:2 portrait viewport */
+    .stage {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      /* 'cover' fills the entire 1:2 screen edge-to-edge */
+      /* Switch to 'contain' if any videos are horizontal and shouldn't be cropped */
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* Bottom-centered control bar tailored for narrow 1:2 portrait screens */
+    .controls {
+      position: fixed;
+      bottom: 4vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 1.5vw;
+      width: 88vw;
+      max-width: 540px;
+      background: rgba(15, 15, 15, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.2vh 2vw;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .controls.hidden {
+      opacity: 0;
+      transform: translate(-50%, 16px);
+      pointer-events: none;
+    }
+
+    button {
+      flex: 1;
+      background: transparent;
+      color: #fff;
+      border: none;
+      padding: 1.6vh 1vw;
+      border-radius: 10px;
+      font-size: clamp(14px, 2.8vw, 24px);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    button.active {
+      background: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stage">
+    <video id="bg-video" autoplay muted playsinline></video>
+  </div>
+
+  <div class="controls" id="controls">
+    <button class="active" onclick="switchPlaylist('grade6', this)">Grade 6</button>
+    <button onclick="switchPlaylist('grade7', this)">Grade 7</button>
+    <button onclick="switchPlaylist('grade8', this)">Grade 8</button>
+  </div>
+
+  <script>
+    const playlists = {
+      grade6: [
+        "Grade 6/ares.mov",
+        "Grade 6/champ.mov",
+        "Grade 6/devin.mov",
+        "Grade 6/jack.mov",
+        "Grade 6/kathryn.mov",
+        "Grade 6/marcia.mov",
+        "Grade 6/max.mov",
+        "Grade 6/mekas.mov",
+        "Grade 6/nastia.mov",
+        "Grade 6/yiteng.mov"
+      ],
+      grade7: [
+        "Grade 7/video1.mov",
+        "Grade 7/video2.mov"
+      ],
+      grade8: [
+        "Grade 8/video1.mov",
+        "Grade 8/video2.mov"
+      ]
+    };
+
+    let currentGrade = "grade6";
+    let currentIndex = 0;
+    const videoPlayer = document.getElementById("bg-video");
+    const controls = document.getElementById("controls");
+    let hideTimeout;
+
+    function playNextVideo() {
+      const activeList = playlists[currentGrade];
+      if (!activeList || activeList.length === 0) return;
+
+      videoPlayer.src = encodeURI(activeList[currentIndex]);
+      videoPlayer.play();
+      currentIndex = (currentIndex + 1) % activeList.length;
+    }
+
+    function switchPlaylist(gradeKey, clickedButton) {
+      document.querySelectorAll(".controls button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      clickedButton.classList.add("active");
+
+      currentGrade = gradeKey;
+      currentIndex = 0;
+      playNextVideo();
+    }
+
+    function showControls() {
+      controls.classList.remove("hidden");
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        controls.classList.add("hidden");
+      }, 3000);
+    }
+
+    document.addEventListener("mousemove", showControls);
+    document.addEventListener("touchstart", showControls);
+    videoPlayer.addEventListener("ended", playNextVideo);
+
+    playNextVideo();
+    showControls();
+  </script>
+
+</body>
+</html>
