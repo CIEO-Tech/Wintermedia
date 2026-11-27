@@ -170,7 +170,7 @@ video {
 /* Grade controls */
 .controls {
   position: fixed;
-  top: 90px;
+  top: 70px;
   bottom: auto;
   left: 50%;
   transform: translateX(-50%);
@@ -385,31 +385,26 @@ video {
     <button class="grade-btn"
       onclick="switchPlaylist('grade5',this)">
       GRADE 5
-      <span>LEVEL 01</span>
     </button>
 
     <button class="grade-btn active"
       onclick="switchPlaylist('grade6',this)">
       GRADE 6
-      <span>LEVEL 02</span>
     </button>
 
     <button class="grade-btn"
       onclick="switchPlaylist('grade7',this)">
       GRADE 7
-      <span>LEVEL 03</span>
     </button>
 
     <button class="grade-btn"
       onclick="switchPlaylist('grade8',this)">
       GRADE 8
-      <span>LEVEL 04</span>
     </button>
 
     <button class="grade-btn"
       onclick="switchPlaylist('grade9',this)">
       GRADE 9
-      <span>LEVEL 05</span>
     </button>
 
   </div>
@@ -448,13 +443,18 @@ const playlists = {
   ],
 
   grade8: [
-    { video: "Grade 8/video1.mov", name: "Video 1" },
-    { video: "Grade 8/video2.mov", name: "Video 2" }
+    { video: "Grade 8/filipp.mp4", name: "Filipp" },
+    { video: "Grade 8/jason.mp4", name: "Jason" },
+    { video: "Grade 8/jt.mov", name: "JT" },
+    { video: "Grade 8/maya.mov", name: "Maya" },
+    { video: "Grade 8/pranav.mov", name: "Pranav" },
+    { video: "Grade 8/Wafia and Wadia.mov", name: "Wafia and Wadia" }
   ],
 
   grade9: [
-    { video: "Grade 9/video1.mov", name: "Video 1" },
-    { video: "Grade 9/video2.mov", name: "Video 2" }
+    { video: "Grade 9/carmen.mp4", name: "Carmen" },
+    { video: "Grade 9/knox.mov", name: "Knox" },
+    { video: "Grade 9/matthew.mov", name: "Matthew" }
   ]
 
 };
